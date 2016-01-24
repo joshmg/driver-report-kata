@@ -110,18 +110,22 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsNextWordWhenAtEndOfLine() throws Exception {
+    public void testParserReturnsNewContentAfterOverwritingContent() throws Exception {
         // Setup
-        final String content = "Mary Had\nA Little Lamb";
-        _subject.setContent(content);
-        final String expectedThirdWord = "A";
+        final String originalContent = "Mary Had\nA Little Lamb";
+        final String newContent = "Her Fleece Was White as Snow";
+        _subject.setContent(originalContent);
         _subject.getNextWord();
         _subject.getNextWord();
+        _subject.setContent(newContent);
+        _subject.getNextWord();
+
+        final String expectedWord = "Fleece";
 
         // Action
         final String word = _subject.getNextWord();
 
         // Assert
-        assertEquals("Failed to retrieve the next word when it falls on a new line.", expectedThirdWord, word);
+        assertEquals("Failed to retrieve the next word after resetting its content.", expectedWord, word);
     }
 }
