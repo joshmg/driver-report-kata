@@ -128,4 +128,22 @@ public class ParserTest {
         // Assert
         assertEquals("Failed to retrieve the next word after resetting its content.", expectedWord, word);
     }
+
+    @Test
+    public void testParserReturnsFirstWordAgainAfterReset() throws Exception {
+        // Setup
+        final String content = "Mary Had\nA Little Lamb";
+        final String expectedWord = "Mary";
+
+        _subject.setContent(content);
+        _subject.getNextWord();
+        _subject.getNextWord();
+
+        // Action
+        _subject.reset();
+        final String word = _subject.getNextWord();
+
+        // Assert
+        assertEquals("Failed to retrieve the original first word after reset.", expectedWord, word);
+    }
 }

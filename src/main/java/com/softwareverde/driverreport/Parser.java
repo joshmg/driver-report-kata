@@ -60,4 +60,8 @@ public class Parser {
         _position += nextWord.length() +1;
         return nextWord;
     }
+
+    public void reset() {
+        _position = 0;
+    }
 }
