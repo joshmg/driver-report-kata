@@ -6,12 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ParserTest {
-    Parser _subject;
+public class TokenizerTest {
+    Tokenizer _subject;
 
     @Before
     public void setUp() throws Exception {
-        _subject = new Parser();
+        _subject = new Tokenizer();
     }
 
     @After
@@ -20,7 +20,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserRetrievesFirstWord() throws Exception {
+    public void testTokenizerRetrievesFirstWord() throws Exception {
         // Setup
         final String content = "Mary Had A Little Lamb\nHer fleece was white as snow\n";
         _subject.setContent(content);
@@ -34,7 +34,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserRetrievesSecondWord() throws Exception {
+    public void testTokenizerRetrievesSecondWord() throws Exception {
         // Setup
         final String content = "Mary Had A Little Lamb\nHer fleece was white as snow\n";
         _subject.setContent(content);
@@ -49,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsEmptyStringWhenPastEndOfContent() throws Exception {
+    public void testTokenizerReturnsEmptyStringWhenPastEndOfContent() throws Exception {
         // Setup
         final String content = "Mary Had";
         _subject.setContent(content);
@@ -65,7 +65,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsWholeStringWhenDeliminatorNotPresent() throws Exception {
+    public void testTokenizerReturnsWholeStringWhenDeliminatorNotPresent() throws Exception {
         // Setup
         final String content = "MaryHadALittleLamb";
         _subject.setContent(content);
@@ -79,7 +79,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsEmptyStringWhenRetrievingTheNextWordWithContentHavingNoDeliminator() throws Exception {
+    public void testTokenizerReturnsEmptyStringWhenRetrievingTheNextWordWithContentHavingNoDeliminator() throws Exception {
         // Setup
         final String content = "MaryHadALittleLamb";
         _subject.setContent(content);
@@ -95,7 +95,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsNextWordWhenDelimitedWithNewline() throws Exception {
+    public void testTokenizerReturnsNextWordWhenDelimitedWithNewline() throws Exception {
         // Setup
         final String content = "Mary Had\nA Little Lamb";
         _subject.setContent(content);
@@ -110,7 +110,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsNewContentAfterOverwritingContent() throws Exception {
+    public void testTokenizerReturnsNewContentAfterOverwritingContent() throws Exception {
         // Setup
         final String originalContent = "Mary Had\nA Little Lamb";
         final String newContent = "Her Fleece Was White as Snow";
@@ -130,7 +130,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserReturnsFirstWordAgainAfterReset() throws Exception {
+    public void testTokenizerReturnsFirstWordAgainAfterReset() throws Exception {
         // Setup
         final String content = "Mary Had\nA Little Lamb";
         final String expectedWord = "Mary";
@@ -145,5 +145,41 @@ public class ParserTest {
 
         // Assert
         assertEquals("Failed to retrieve the original first word after reset.", expectedWord, word);
+    }
+
+    @Test
+    public void testTokenizerHasNextWordWhenNotAtEndOfContent() throws Exception {
+        // Setup
+        final String content = "Mary Had\nA Little Lamb";
+        final Boolean expectedHasNext = true;
+
+        _subject.setContent(content);
+        _subject.getNextWord();
+
+        // Action
+        final Boolean hasNext = _subject.hasNextWord();
+
+        // Assert
+        assertEquals("HasNextWord fails when a next word is available.", expectedHasNext, hasNext);
+    }
+
+    @Test
+    public void testTokenizerHasNextWordWhenAtEndOfContent() throws Exception {
+        // Setup
+        final String content = "Mary Had\nA Little Lamb";
+        final Boolean expectedHasNext = false;
+
+        _subject.setContent(content);
+        _subject.getNextWord(); // Mary
+        _subject.getNextWord(); // Had
+        _subject.getNextWord(); // A
+        _subject.getNextWord(); // Little
+        _subject.getNextWord(); // Lamb
+
+        // Action
+        final Boolean hasNext = _subject.hasNextWord();
+
+        // Assert
+        assertEquals("HasNextWord fails when a next word is available.", expectedHasNext, hasNext);
     }
 }

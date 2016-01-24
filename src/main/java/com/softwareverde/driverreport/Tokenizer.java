@@ -1,6 +1,6 @@
 package com.softwareverde.driverreport;
 
-public class Parser {
+public class Tokenizer {
     final String _spaceDeliminator = " ";
     final String _newlineDeliminator = "\n";
     String _content = "";
@@ -28,6 +28,7 @@ public class Parser {
         return index;
     }
 
+    // NOTE: Returns the delimiter of the next word, regardless of space or newline.
     private Integer _getNextDelimiterIndex() {
         final Integer spaceIndex = _getNextSpaceIndex();
         final Integer newlineIndex = _getNextNewlineIndex();
@@ -63,5 +64,9 @@ public class Parser {
 
     public void reset() {
         _position = 0;
+    }
+
+    public Boolean hasNextWord() {
+        return (_position < _content.length());
     }
 }
