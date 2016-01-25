@@ -1,0 +1,12 @@
+Driver Report Kata
+    SRC: https://gist.github.com/dan-manges/1e1854d0704cb9132b74
+
+Build:
+    ./make-jar.sh
+
+Run:
+    ./run-jar.sh '<input>'
+
+Run (With Example Input):
+    ./run-jar.sh `cat data/example-input.txt`
+
