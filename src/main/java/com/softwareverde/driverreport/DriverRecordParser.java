@@ -9,44 +9,6 @@ public class DriverRecordParser {
     private static final String DRIVER_TOKEN = "driver";
     private static final String TRIP_TOKEN = "trip";
 
-    public static class Driver {
-        public String driverName;
-
-        public Driver() { }
-        public Driver(String driverName) {
-            this.driverName = driverName;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.driverName.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            if (! (object instanceof Driver)) {
-                return false;
-            }
-
-            final Driver rhs = (Driver) object;
-            if (rhs.driverName == null && this.driverName == null) {
-                return true;
-            }
-
-            if (this.driverName != null) {
-                return this.driverName.equals(rhs.driverName);
-            }
-
-            return false;
-        }
-    }
-
-    public static class Trip {
-        public Long startTime;  // Epoch + Seconds
-        public Long endTime;    // Epoch + Seconds
-        public Double distance; // Miles
-    }
-
     private Map<String, List<Trip>> _records = new HashMap<String, List<Trip>>();
     private Tokenizer _tokenizer = new Tokenizer();
     private Boolean _isValid = true;

@@ -23,8 +23,8 @@ public class DriverRecordParserTest {
     public void testDriverEqualsDriverWithTheSameName() throws Exception {
         // Setup
         final Boolean expectedEqual = true;
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver("Dan");
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver("Dan");
+        final Driver driver1 = new Driver("Dan");
+        final Driver driver2 = new Driver("Dan");
         final Boolean driversAreEqual;
 
         // Action
@@ -38,8 +38,8 @@ public class DriverRecordParserTest {
     public void testDriverEqualsDriverWithNoName() throws Exception {
         // Setup
         final Boolean expectedEqual = true;
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver();
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver();
+        final Driver driver1 = new Driver();
+        final Driver driver2 = new Driver();
         final Boolean driversAreEqual;
 
         // Action
@@ -53,8 +53,8 @@ public class DriverRecordParserTest {
     public void testDriverEqualsDriverWithDifferentNames() throws Exception {
         // Setup
         final Boolean expectedEqual = false;
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver("Dan");
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver("Alex");
+        final Driver driver1 = new Driver("Dan");
+        final Driver driver2 = new Driver("Alex");
         final Boolean driversAreEqual;
 
         // Action
@@ -68,8 +68,8 @@ public class DriverRecordParserTest {
     public void testDriverEqualsDriverWithRHSUnsetName() throws Exception {
         // Setup
         final Boolean expectedEqual = false;
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver("Dan");
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver();
+        final Driver driver1 = new Driver("Dan");
+        final Driver driver2 = new Driver();
         final Boolean driversAreEqual;
 
         // Action
@@ -83,8 +83,8 @@ public class DriverRecordParserTest {
     public void testDriverEqualsDriverWithLHSUnsetName() throws Exception {
         // Setup
         final Boolean expectedEqual = false;
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver();
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver("Alex");
+        final Driver driver1 = new Driver();
+        final Driver driver2 = new Driver("Alex");
         final Boolean driversAreEqual;
 
         // Action
@@ -99,11 +99,11 @@ public class DriverRecordParserTest {
         // Setup
         final String content = "Driver Dan\nDriver Alex\nDriver Ilya\nTrip Dan 07:15 07:45 17.3\nTrip Dan 06:12 06:32 12.9\nTrip Alex 12:01 13:16 42.0";
         final DriverRecordParser subject = new DriverRecordParser(content);
-        List<DriverRecordParser.Driver> driverList;
+        List<Driver> driverList;
 
-        final DriverRecordParser.Driver driver1 = new DriverRecordParser.Driver("Dan");
-        final DriverRecordParser.Driver driver2 = new DriverRecordParser.Driver("Alex");
-        final DriverRecordParser.Driver driver3 = new DriverRecordParser.Driver("Ilya");
+        final Driver driver1 = new Driver("Dan");
+        final Driver driver2 = new Driver("Alex");
+        final Driver driver3 = new Driver("Ilya");
         final long expectedDriverListLength = 3L;
 
         // Action
@@ -121,7 +121,7 @@ public class DriverRecordParserTest {
         // Setup
         final String content = "Trip Dan 07:15 07:45 17.3\nTrip Dan 06:12 06:32 12.9\nTrip Alex 12:01 13:16 42.0";
         final DriverRecordParser subject = new DriverRecordParser(content);
-        List<DriverRecordParser.Driver> driverList;
+        List<Driver> driverList;
 
         final long expectedDriverListLength = 0L;
 
@@ -137,7 +137,7 @@ public class DriverRecordParserTest {
         // Setup
         final String content = "Driver Trip Dan 07:15 07:45 17.3\nTrip Dan 06:12 06:32 12.9\nTrip Alex 12:01 13:16 42.0";
         final DriverRecordParser subject = new DriverRecordParser(content);
-        List<DriverRecordParser.Driver> driverList;
+        List<Driver> driverList;
 
         final long expectedDriverListLength = 0L;
 
@@ -152,15 +152,15 @@ public class DriverRecordParserTest {
     public void testGetTripsForDriverWithValidTrips() throws Exception {
         final String content = "Driver Dan\nDriver Alex\nDriver Ilya\nTrip Dan 07:15 07:45 17.3\nTrip Dan 06:12 06:32 12.9\nTrip Alex 12:01 13:16 42.0";
         final DriverRecordParser subject = new DriverRecordParser(content);
-        List<DriverRecordParser.Trip> tripList;
+        List<Trip> tripList;
         final String inspectedDriver = "Dan";
 
-        final DriverRecordParser.Trip trip1 = new DriverRecordParser.Trip();
+        final Trip trip1 = new Trip();
         trip1.startTime = 26100L;
         trip1.endTime = 27900L;
         trip1.distance = 17.3D;
 
-        final DriverRecordParser.Trip trip2 = new DriverRecordParser.Trip();
+        final Trip trip2 = new Trip();
         trip2.startTime = 22320L;
         trip2.endTime = 23520L;
         trip2.distance = 12.9D;
@@ -186,7 +186,7 @@ public class DriverRecordParserTest {
     public void testGetTripsForDriverWithInvalidTrips() throws Exception {
         final String content = "Trip Dan 07:15 07:45 17.3\nTrip Dan 06:12 06:32 12.9\nTrip Alex 12:01 13:16 42.0";
         final DriverRecordParser subject = new DriverRecordParser(content);
-        List<DriverRecordParser.Trip> tripList;
+        List<Trip> tripList;
         final String inspectedDriver = "Dan";
 
         final long expectedDriverListLength = 0L;
