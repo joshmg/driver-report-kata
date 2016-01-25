@@ -1,1 +1,1 @@
-java -jar bin/main.jar
+java -jar bin/main.jar "$@"
